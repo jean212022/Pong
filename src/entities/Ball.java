@@ -16,21 +16,28 @@ public class Ball {
 		this.y = y;
 		this.width = 4;
 		this.height = 4;
-		this.dx = new Random().nextGaussian();
-		this.dy = new Random().nextGaussian();
+		
+		int angle = new Random().nextInt(80);
+		this.dx = Math.cos(Math.toRadians(angle));
+		this.dy = Math.sin(Math.toRadians(angle));
 	}
 	
 	public void tick() {
-		if(x + (dx*speed) >= Game.WIDTH) {
-			dx*=-1;
+		if(x + (dx*speed) + width >= Game.WIDTH) {
+			dx*=(-1);
 		} else if(x+(dx*speed) < 0) {
-			dx*=-1;	
+			dx*=(-1);	
 		}
 		
 		if(y >= Game.HEIGHT) {
-			//Ponto do inimigo
+			System.out.println("Ponto do inimigo!");
+			new Game();
+			return;
 		} else if (y < 0) {
 			//Ponto do jogador
+			System.out.println("Ponto do jogador!");
+			new Game();
+			return;
 		}
 		Rectangle bounds = new Rectangle((int)(x+dx*speed), (int)(y+dy*speed), width, height);
 		Rectangle boundsPlayer = new Rectangle(Game.player.x, Game.player.y, Game.player.width, Game.player.height);
